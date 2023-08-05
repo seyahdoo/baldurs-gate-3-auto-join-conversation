@@ -1,14 +1,31 @@
 # Author: Seyyid Ahmed Doğan (seyahdoo, seyahdoo@gmail.com)
-# Written on: 05/08/2023
+# Initial Release Date: 05/08/2023
 
 
 import pyautogui
 import time
+from version import version
+import os
+
+print(f"Baldurs Gate 3 Auto Join Conversations v{version}")
+print(f"Author: Seyyid Ahmed Doğan (seyahdoo, seyahdoo@gmail.com)")
+print(f"Initial Release Date: 05/08/2023")
+
+def resource_path(relative):
+    return os.path.join(
+        os.environ.get(
+            "_MEIPASS2",
+            os.path.abspath(".")
+        ),
+        relative
+    )
+
+png_path = resource_path("listen-in.png")
 
 while True:
     try:
         time.sleep(1)
-        location = pyautogui.locateOnScreen('listen-in.png')
+        location = pyautogui.locateOnScreen(png_path)
         if(location == None):
             continue
         print(f"found listen in button {location}")
@@ -18,4 +35,5 @@ while True:
         pyautogui.click(x, y)
     except Exception as e:
         print(e)
+
 
