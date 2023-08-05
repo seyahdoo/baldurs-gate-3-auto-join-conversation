@@ -12,16 +12,7 @@ print(f"Baldurs Gate 3 Auto Join Conversations v{version}")
 print(f"Author: Seyyid Ahmed Doğan (seyahdoo, seyahdoo@gmail.com)")
 print(f"Initial Release Date: 05/08/2023")
 
-def resource_path(relative):
-    return os.path.join(
-        os.environ.get(
-            "_MEIPASS2",
-            os.path.abspath(".")
-        ),
-        relative
-    )
-
-png_path = resource_path("listen-in.png")
+png_path = "listen-in.png"
 
 while True:
     try:
