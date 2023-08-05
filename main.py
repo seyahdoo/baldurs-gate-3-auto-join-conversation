@@ -6,9 +6,9 @@ import time
 import msvcrt as m
 import os
 import sys
+from version import version
 
 PNG_PATH = "listen-in.png"
-VERSION = "1.0.1"
 
 def main():
     print_intro()    
@@ -26,7 +26,7 @@ def print_intro():
 
 Author: Seyyid Ahmed Doğan (seyahdoo, seyahdoo@gmail.com)
 Release Date: 05/08/2023
-Version: v1.0.1
+Version: v{version}
         """)
     return
 
