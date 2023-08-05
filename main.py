@@ -3,6 +3,8 @@
 
 import pyautogui
 import time
+import msvcrt as m
+import os
 
 PNG_PATH = "listen-in.png"
 VERSION = "1.0.1"
@@ -28,16 +30,22 @@ Version: v1.0.1
     return
 
 def do_loop():
-    print("trying to locate the listen in button")
+    print("Trying to locate the listen in button")
     while True:
         try:
             time.sleep(1)
             x, y = pyautogui.locateCenterOnScreen(PNG_PATH)
-            print(f"clicking on listen in button on ({x}, {y})")
+            print(f"Clicking on listen in button on ({x}, {y})")
             pyautogui.click(x, y)
-        except FileNotFoundError as e: print(e); exit(1)
+        except FileNotFoundError as e: error_out(e)
         except TypeError as e: pass
-        except Exception as e: print(e); exit(1)
+        except Exception as e: error_out(e)
+
+def error_out(e):
+    print(e)
+    print("Press any key to exit...", end="", flush=True)
+    m.getch()
+    exit(0)
 
 if __name__ == "__main__":
     main()
