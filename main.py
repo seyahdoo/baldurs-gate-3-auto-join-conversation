@@ -5,6 +5,7 @@ import pyautogui
 import time
 import msvcrt as m
 import os
+import sys
 
 PNG_PATH = "listen-in.png"
 VERSION = "1.0.1"
@@ -34,12 +35,18 @@ def do_loop():
     while True:
         try:
             time.sleep(1)
-            x, y = pyautogui.locateCenterOnScreen(PNG_PATH)
+            path = resource_path(PNG_PATH)
+            x, y = pyautogui.locateCenterOnScreen(path)
             print(f"Clicking on listen in button on ({x}, {y})")
             pyautogui.click(x, y)
         except FileNotFoundError as e: error_out(e)
         except TypeError as e: pass
         except Exception as e: error_out(e)
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
 
 def error_out(e):
     print(e)
