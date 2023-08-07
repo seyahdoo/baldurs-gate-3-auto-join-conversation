@@ -36,7 +36,7 @@ def do_loop():
         try:
             time.sleep(1)
             path = resource_path(PNG_PATH)
-            x, y = pyautogui.locateCenterOnScreen(path, confidence=0.95)
+            x, y = pyautogui.locateCenterOnScreen(path, confidence=0.70)
             print(f"Clicking on listen in button on ({x}, {y})")
             pyautogui.click(x, y)
         except FileNotFoundError as e: error_out(e)
