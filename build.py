@@ -1,4 +1,5 @@
 import os
+import shutil
 from version import version, minor, major, fix
 
 build_properties = f"""
@@ -36,5 +37,15 @@ text_file = open("build_properties.txt", "w")
 n = text_file.write(build_properties)
 text_file.close()
 
-os.system("pyinstaller --onefile --add-data \"listen-in.png;.\" main.py --version-file=\"build_properties.txt\" --name baldurs-gate-3-auto-join-conversations")
+os.system("pip install -r requirements.txt")
+os.system("pyinstaller --onefile main.py --version-file=\"build_properties.txt\" --name baldurs-gate-3-auto-join-conversations")
 os.remove("build_properties.txt")
+
+shutil.copyfile("listen-in.png", "dist/listen-in.png")
+
+import zipfile
+
+with zipfile.ZipFile('dist/baldurs-gate-3-auto-join-conversations.zip', 'w') as myzip:
+    myzip.write('dist/listen-in.png', "listen-in.png")
+    myzip.write('dist/baldurs-gate-3-auto-join-conversations.exe', "baldurs-gate-3-auto-join-conversations.exe")
+
