@@ -10,14 +10,12 @@ import json
 from screeninfo import get_monitors
 from version import version
 
-png_path = None
-confidence = None
 
 def main():
     try:
         print_intro()   
-        load_settings() 
-        do_loop()
+        png_path, confidence = load_settings() 
+        do_loop(png_path, confidence)
     except Exception as e: error_out(e)
     return
 
@@ -41,7 +39,7 @@ def load_settings():
     print("loading settings from settings.json")
     with open("settings.json", "r") as f:
         settings = json.load(f)
-        confidence = settings["confidence"]
+        confidence = float(settings["confidence"])
         print(f"setting confidence to {confidence}")
         resolution_height = settings["resolution_height"]
         if resolution_height == "auto-detect":
@@ -52,9 +50,9 @@ def load_settings():
                     print(f"detected screen height {resolution_height}")
         png_path = f"listen-in-{resolution_height}.png"
         print(f"using png path {png_path}")
-    return
+    return png_path, confidence
 
-def do_loop():
+def do_loop(png_path, confidence):
     print("-------------------------------------")
     print("Trying to locate the listen in button")
     while True:
