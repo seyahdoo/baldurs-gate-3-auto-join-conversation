@@ -1,3 +1,4 @@
 pyautogui
 pyinstaller
 opencv-python
+screeninfo

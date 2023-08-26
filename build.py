@@ -41,11 +41,22 @@ os.system("pip install -r requirements.txt")
 os.system("pyinstaller --onefile main.py --version-file=\"build_properties.txt\" --name baldurs-gate-3-auto-join-conversations")
 os.remove("build_properties.txt")
 
-shutil.copyfile("listen-in.png", "dist/listen-in.png")
+build_extras = [
+  "settings.json"
+]
+
+for filename in os.listdir("."):
+  if filename.startswith("listen-in"):
+    build_extras.append(filename)
+
+for file in build_extras:
+  shutil.copyfile(file, f"dist/{file}")
 
 import zipfile
 
 with zipfile.ZipFile('dist/baldurs-gate-3-auto-join-conversations.zip', 'w') as myzip:
-    myzip.write('dist/listen-in.png', "listen-in.png")
-    myzip.write('dist/baldurs-gate-3-auto-join-conversations.exe', "baldurs-gate-3-auto-join-conversations.exe")
+  myzip.write('dist/baldurs-gate-3-auto-join-conversations.exe', "baldurs-gate-3-auto-join-conversations.exe")
+  for file in build_extras:
+    myzip.write(f'dist/{file}', file)
+
 
