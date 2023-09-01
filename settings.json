@@ -1,5 +1,6 @@
 {
     "confidence": 0.70,
     "resolution_height": "auto-detect",
+    "pause_hotkey": "ctrl+shift+p",
     "_comment": "possible resolution values => auto-detect, 1080, 1440, 2160"
 }

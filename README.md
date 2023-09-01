@@ -6,9 +6,9 @@ auto joins conversation on baldurs gate 3 game
 
 - Download baldurs-gate-3-auto-join-conversations.zip from latest release
 - Extract to a folder
-- You may want to change listen-in.png to accomodate your screen size
+- Adjust settings.json
 - Run baldurs-gate-3-auto-join-conversations.exe
-- Use `Ctrl+Shift+P` to pause/unpause the script
+- Use `Ctrl+Shift+P` to pause/unpause the script (Can be changed in settings.json)
 
 ## Known Problems
 
