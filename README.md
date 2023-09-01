@@ -14,9 +14,8 @@ auto joins conversation on baldurs gate 3 game
 - This script will take a screenshot of the game every one second and will analyze it. It may impact game performance.
 
 
-## How To Build
+## Create new Release
 
-- Install python 3
-- Run build.py
-- Locate the build output at "dist/baldurs-gate-3-auto-join-conversations.zip"
-
+- Change version.py
+- Push to main
+- GitHub Actions will create and upload a new release
