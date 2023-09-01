@@ -1,5 +1,5 @@
 pyautogui
-pyinstaller
 opencv-python
 screeninfo
 keyboard
+pyinstaller

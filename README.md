@@ -21,9 +21,14 @@ auto joins conversation on baldurs gate 3 game
 - Run pip install -r requirements.txt
 - Run main.py normally or with python debugger
 
-## How To Build
+## How To Build locally
 
 - Install python 3.x
 - Run build.py (using venv on build.py does not work)
 - Locate the build output at "dist/baldurs-gate-3-auto-join-conversations.zip"
 
+## Create new Release
+
+- Change version.py
+- Push to main
+- GitHub Actions will create and upload a new release

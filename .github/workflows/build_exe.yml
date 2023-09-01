@@ -1,0 +1,53 @@
+name: Build EXE and Create Release
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the main branch
+    paths:
+      - 'version.py'  # Only run if version.py changes
+  workflow_dispatch:  # Enable manual triggering
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash  # Set bash as the default shell
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Generate build.spec and version_info.txt
+      run: python generate_build_version_files.py
+
+    - name: Create Executable
+      run: pyinstaller build.spec
+
+    - name: Package Files
+      run: |
+        mv dist/baldurs-gate-3-auto-join-conversation.exe baldurs-gate-3-auto-join-conversation.exe
+        7z a baldurs-gate-3-auto-join-conversation.zip baldurs-gate-3-auto-join-conversation.exe settings.json listen-in-*.png
+
+    - name: Set Version
+      id: set_version
+      run: echo "VERSION=$(python -c 'from version import version; print(version)')" >> $GITHUB_ENV
+
+    - name: Create Release
+      id: create_release
+      uses: ncipollo/release-action@v1.13.0
+      with:
+        tag: ${{ env.VERSION }}
+        name: Release ${{ env.VERSION }}
+        artifacts: baldurs-gate-3-auto-join-conversation.zip
+        artifactContentType: application/zip
+        # token: ${{ secrets.YOUR_ACCESS_TOKEN }} # Only needed in forks
