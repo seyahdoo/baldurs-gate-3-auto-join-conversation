@@ -7,17 +7,29 @@ import msvcrt as m
 import os
 import sys
 import json
+import keyboard
 from screeninfo import get_monitors
 from version import version
 
+# Global variable to control the pause state
+paused = False
 
 def main():
     try:
-        print_intro()   
-        png_path, confidence = load_settings() 
+        print_intro()
+        keyboard.add_hotkey('ctrl+shift+p', toggle_pause)
+        png_path, confidence = load_settings()
         do_loop(png_path, confidence)
     except Exception as e: error_out(e)
     return
+
+def toggle_pause():
+    global paused
+    paused = not paused
+    if paused:
+        print("Script is paused. Press Ctrl+Shift+P again to resume.")
+    else:
+        print("Script is resumed. Press Ctrl+Shift+P again to pause.")
 
 def print_intro():
     print(f"""
@@ -56,12 +68,15 @@ def do_loop(png_path, confidence):
     print("-------------------------------------")
     print("Trying to locate the listen in button")
     while True:
-        try:
-            time.sleep(1)
-            x, y = pyautogui.locateCenterOnScreen(png_path, confidence=confidence)
-            print(f"Clicking on listen in button on ({x}, {y})")
-            pyautogui.click(x, y)
-        except TypeError as e: pass
+        if not paused:
+            try:
+                time.sleep(1)
+                x, y = pyautogui.locateCenterOnScreen(png_path, confidence=confidence)
+                print(f"Clicking on listen in button on ({x}, {y})")
+                pyautogui.click(x, y)
+            except TypeError as e: pass
+        else:
+            time.sleep(0.5)
     return
 
 def error_out(e):
