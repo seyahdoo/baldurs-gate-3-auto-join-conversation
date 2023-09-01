@@ -12,6 +12,7 @@ from screeninfo import get_monitors
 from version import version
 
 # Global variable to control the pause state
+global paused
 paused = False
 
 def main():
@@ -22,14 +23,6 @@ def main():
         do_loop(png_path, confidence)
     except Exception as e: error_out(e)
     return
-
-def toggle_pause(pause_hotkey):
-    global paused
-    paused = not paused
-    if paused:
-        print(f"Script is paused. Press {pause_hotkey} again to resume.")
-    else:
-        print(f"Script is resumed. Press {pause_hotkey} again to pause.")
 
 def print_intro():
     print(f"""
@@ -63,21 +56,31 @@ def load_settings():
         png_path = f"listen-in-{resolution_height}.png"
         print(f"using png path {png_path}")
         pause_hotkey = settings["pause_hotkey"]
+        print(f"pause hothey is {pause_hotkey}")
     return png_path, confidence, pause_hotkey
+
+def toggle_pause(pause_hotkey):
+    global paused
+    paused = not paused
+    if paused:
+        print(f"Script is paused. Press {pause_hotkey} again to resume.")
+    else:
+        print(f"Script is resumed. Press {pause_hotkey} again to pause.")
+    return
 
 def do_loop(png_path, confidence):
     print("-------------------------------------")
     print("Trying to locate the listen in button")
     while True:
-        if not paused:
-            try:
-                time.sleep(1)
-                x, y = pyautogui.locateCenterOnScreen(png_path, confidence=confidence)
-                print(f"Clicking on listen in button on ({x}, {y})")
-                pyautogui.click(x, y)
-            except TypeError as e: pass
-        else:
+        if paused:
             time.sleep(0.5)
+            continue
+        try:
+            time.sleep(1)
+            x, y = pyautogui.locateCenterOnScreen(png_path, confidence=confidence)
+            print(f"Clicking on listen in button on ({x}, {y})")
+            pyautogui.click(x, y)
+        except TypeError as e: pass
     return
 
 def error_out(e):
