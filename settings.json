@@ -1,6 +1,10 @@
 {
-    "confidence": 0.70,
+    "_comment1": "how much i will try to match the image on screen to click",
+    "confidence": 0.95,
+
+    "_comment2": "possible resolution values => auto-detect, 1080, 1440, 2160",
     "resolution_height": "auto-detect",
-    "pause_hotkey": "ctrl+shift+p",
-    "_comment": "possible resolution values => auto-detect, 1080, 1440, 2160"
+    
+    "_comment3": "this will toggle pause behaviour",
+    "pause_hotkey": "ctrl+shift+p"
 }
