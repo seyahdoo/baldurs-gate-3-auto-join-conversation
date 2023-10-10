@@ -1,5 +1,9 @@
 # Baldurs Gate 3 Auto Join Conversation Script
-auto joins conversation on baldurs gate 3 game
+Auto joins conversation on baldurs gate 3 game, with image recognition
+
+## You dont need this anymore
+
+This feature has been added to the game with patch 3. Find it here: Options > Gameplay > Default Online Settings > Eavesdrop.
 
 ## How To Use
 
